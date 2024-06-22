@@ -1,6 +1,5 @@
 import { auth, currentUser} from "@clerk/nextjs/server";
 import { db } from "./db";
-
 export const initialProfile=async ()=>{
     const user=await currentUser();
     if(!user){
@@ -9,7 +8,7 @@ export const initialProfile=async ()=>{
 
     const profile=await db.profile.findUnique({
         where:{
-            userId:user.id
+           userId:user.id
         }
     });
 
