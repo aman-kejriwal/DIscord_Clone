@@ -4,6 +4,10 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ui/providers/theme-provider";
 import { cn } from "@/lib/utils";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+ import '@uploadthing/react/styles.css'
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const inter = Open_Sans({ subsets: ["latin"] });
 
@@ -18,7 +22,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
     <ClerkProvider>
       <html lang="en">
         <body  className={ cn( inter.className,"bg-white dark:bg-[#313338]"  )}>
@@ -27,7 +30,9 @@ export default function RootLayout({
             defaultTheme="dark"
             enableSystem={false}
             storageKey="discord-theme"
-            >
+            > 
+            <NextSSRPlugin 
+              routerConfig={extractRouterConfig(ourFileRouter)}/>
               {children}
             </ThemeProvider>
         </body>
