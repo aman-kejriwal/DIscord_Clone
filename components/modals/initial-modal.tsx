@@ -1,7 +1,7 @@
-"use client";
+"use client"
 import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Dialog,
     DialogContent,
@@ -9,7 +9,8 @@ import {
     DialogFooter,
     DialogTitle,
     DialogHeader
-} from "@/components/ui/dialog";
+}
+    from "@/components/ui/dialog";
 import {
     Form,
     FormControl,
@@ -17,49 +18,49 @@ import {
     FormLabel,
     FormItem,
     FormMessage
-} from '@/components/ui/form';
+} from '@/components/ui/form'
 import { Button } from "@/components/ui/button";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { FileUpload } from "../file-upload";
-
 const formSchema = z.object({
-    name: z.string().min(1, { message: "Server name is required" }),
-    imageUrl: z.string().min(1, { message: "Server image is required" })
-});
-
+    name: z.string().min(1, {
+        message: "Server name is Required"
+    }),
+    imageUrl: z.string().min(1, {
+        message: "Server image is required"
+    })
+})
 export const InitialModal = () => {
-    const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
+    const [isMounted,setIsMounted]=useState(false);
+    useEffect(()=>{
         setIsMounted(true);
-    }, []);
+    },[])
 
-    // form 
+    //form 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            imageUrl: ""
+            imageUrl: "",
         }
     });
-
     const isLoading = form.formState.isSubmitting;
-
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values);
     }
 
-    if (!isMounted) {
-        return null;
-    }
-
+        if(!isMounted){
+            return null;
+        }
     return (
         <Dialog open>
-            <DialogContent className="bg-white text-black p-0 overflow-hidden">
+            <DialogContent
+                className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="font-bold text-2xl text-center">
-                        Customize Your Server
+                        Cutomize Your Server
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque, repudiandae cumque! Unde?
@@ -67,13 +68,14 @@ export const InitialModal = () => {
                     I am Aman Kumar
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-6">
+                    <form onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-8 px-6">
                         <div className="space-y-8 px-6">
                             <div className="flex items-center justify-center text-center">
                                 <FormField
                                     control={form.control}
                                     name="imageUrl"
-                                    render={({ field }) => (
+                                    render={({field})=>(
                                         <FormItem>
                                             <FormControl>
                                                 <FileUpload
@@ -82,33 +84,34 @@ export const InitialModal = () => {
                                                     onChange={field.onChange}
                                                 />
                                             </FormControl>
-                                            <FormMessage />
                                         </FormItem>
                                     )}
-                                />
+                                    >
+
+                                </FormField>
                             </div>
                             <FormField
                                 control={form.control}
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="font-bold text-xs">Name Of Server</FormLabel>
-                                        <FormControl>
+                                        <FormLabel className="font-bold text-xs ">Name Of Server</FormLabel>
+                                        <FormControl >
                                             <Input className="bg-zinc-200" placeholder="Enter server" {...field} />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage/>
                                     </FormItem>
                                 )}
                             />
                         </div>
                         <DialogFooter className="bg-green-100 px-6 py-4 flex justify-center items-center">
-                            <Button variant="primary" type="submit" disabled={isLoading}>
+                            <Button variant="primary">
                                 Create
                             </Button>
-                        </DialogFooter>
+                        </DialogFooter> 
                     </form>
                 </Form>
             </DialogContent>
         </Dialog>
-    );
-};
+    )
+}
