@@ -2,6 +2,7 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"; 
 import {
     Dialog,
     DialogContent,
@@ -23,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { FileUpload } from "../file-upload";
+import { useRouter } from "next/navigation";
 const formSchema = z.object({
     name: z.string().min(1, {
         message: "Server name is Required"
@@ -32,7 +34,7 @@ const formSchema = z.object({
     })
 })
 export const InitialModal = () => {
-
+    const router=useRouter() ;
     const [isMounted,setIsMounted]=useState(false);
     useEffect(()=>{
         setIsMounted(true);
@@ -48,7 +50,15 @@ export const InitialModal = () => {
     });
     const isLoading = form.formState.isSubmitting;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+      try{
+        axios.post("/api/servers",values);
+            form.reset();
+            router.refresh();
+            window.location.reload();
+      }
+      catch(e){
+        console.log()
+      } 
     }
 
         if(!isMounted){
@@ -62,10 +72,9 @@ export const InitialModal = () => {
                     <DialogTitle className="font-bold text-2xl text-center">
                         Cutomize Your Server
                     </DialogTitle>
-                    <DialogDescription className="text-center text-zinc-500">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque, repudiandae cumque! Unde?
+                    <DialogDescription className="text-center text-black-500">
+                        Give your server a personality name and a cool Avatar,you can edit you preferences later through setting.
                     </DialogDescription>
-                    I am Aman Kumar
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}
