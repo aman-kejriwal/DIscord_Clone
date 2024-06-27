@@ -2,9 +2,12 @@ import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import NavigationAction from "./navigation-action";
+
+import { ModeToggle } from "../mode-toggle";
 import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
 import { NavigationItem } from "./navigation-item";
+import { UserButton } from "@clerk/nextjs";
 export default async function NavigationSidebar(){  
     const profile=await currentProfile();
     if(!profile){
@@ -27,7 +30,7 @@ return (
       className="h-[2px] bg-zinc-400 w-10 dark:bg-zinc-700 rounded-md mx-auto"
       />
       <ScrollArea 
-       className="w-full h-full flex flex-col items-center space-y-4 overflow-y-auto">
+       className="w-full flex flex-col items-center space-y-4 overflow-y-auto">
         {servers.map((server) => (
             <div key={server.id} className="mb-4 mx-auto text-center">
                 <NavigationItem 
@@ -37,6 +40,17 @@ return (
             </div>
         ))}
       </ScrollArea>
-    </div>
+      <div className="flex items-center flex-col gap-y-4 justify-end mt-auto" >
+        <ModeToggle />
+        <UserButton 
+            afterSignOutUrl="/"
+            appearance={{
+                elements:{
+                   avatarBox:"h-[48px] w-[48px]"
+                }
+            }}
+        />
+      </div>
+     </div>
 )
 }   

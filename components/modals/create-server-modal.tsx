@@ -22,9 +22,10 @@ import {
 } from '@/components/ui/form'
 import { Button } from "@/components/ui/button";
 import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { FileUpload } from "../file-upload";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/hooks/use-modal-store";
 const formSchema = z.object({
     name: z.string().min(1, {
         message: "Server name is Required"
@@ -33,13 +34,10 @@ const formSchema = z.object({
         message: "Server image is required"
     })
 })
-export const InitialModal = () => {
+export const CreateServerModal = () => {
+    const {isOpen,onClose,type}=useModal();
     const router=useRouter() ;
-    const [isMounted,setIsMounted]=useState(false);
-    useEffect(()=>{
-        setIsMounted(true);
-    },[])
-
+    const isModalOpen=isOpen&&type==="createServer";
     //form 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -51,21 +49,23 @@ export const InitialModal = () => {
     const isLoading = form.formState.isSubmitting;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
       try{
-        axios.post("/api/servers",values);
-            form.reset();
-            router.refresh();
-            window.location.reload();
-      }
-      catch(e){
-        console.log()
+         axios.post("/api/servers",values);
+         form.reset();
+         router.refresh();
+         onClose();
+      } 
+      catch(error){
+        console.log(error)
       } 
     }
 
-        if(!isMounted){
-            return null;
-        }
+    const handleClose=()=>{
+          form.reset();
+          onClose();  
+    }
+    
     return (
-        <Dialog open>
+        <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent
                 className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
