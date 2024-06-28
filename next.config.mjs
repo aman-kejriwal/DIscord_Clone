@@ -5,9 +5,9 @@ const nextConfig = {
     //         "uploadthing.com"
     //     ]
     // },
-    images: {
-        domains: ['utfs.io', /* other domains */],
-      },
+      images: {
+          domains: ['utfs.io', /* other domains */],
+        },
 };
 
 export default nextConfig;
