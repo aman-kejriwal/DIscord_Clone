@@ -89,7 +89,7 @@ export const ServerHeader = (
                  {
                     !isAdmin && (
                         <DropdownMenuItem
-                            className="text-indigo-600 dark:text-indigo-400 p-3 py-2 text-sm cursor-pointer">
+                            className="text-rose-600 dark:text-indigo-400 p-3 py-2 text-sm cursor-pointer">
                             Leave Server
                             <LogOut className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>

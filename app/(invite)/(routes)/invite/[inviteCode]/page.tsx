@@ -1,57 +1,57 @@
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
-import { redirectToSignIn } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-
 
 interface InviteCodePageProps{
    params:{
-    inviteCode:string
+     inviteCode:string
    }
 }
 const InviteCodepage = async ({
     params
 }:InviteCodePageProps) => {
-    const profile=await  currentProfile();
+    const profile=await currentProfile();
     if(!profile){
-       redirectToSignIn();
+        auth().redirectToSignIn();
     }
     if(!params.inviteCode){
         redirect("/");
     }
+    //you are already a member of the inviteCode
     const existingServer=await db.server.findFirst({
         where:{
             inviteCode:params.inviteCode,
             members:{
                 some:{
-                    profileId:params.inviteCode,
+                    profileId:profile?.id,
                 }
             }
         }    
     });
     if(existingServer){
-        redirect(`/server/${existingServer.id}`)
+        redirect(`/servers/${existingServer.id}`)
     }
 
-    // const server=await db.server.update({
-    //     where:{
-    //         inviteCode:params.inviteCode
-    //     },
-    //     data:{
-    //         members:{
-    //             create:[
-    //                 {
-    //                 profileId:profile?.id
-    //                 }
-    //             ]
-    //         }
-    //     }
-    // });
-    return ( 
-        <div>
-            InviteCode is Here
-        </div>
-     );
+    //Updating the server with Adding the GUEST through the given InviteCode
+    const server=await db.server.update({
+        where:{
+            inviteCode:params.inviteCode,
+        },
+        data:{
+            members:{
+                create:[
+                    {
+                     profileId:profile?.id+""
+                    }
+                ]
+            }
+        }
+    });
+    if(server){
+        return redirect(`/servers/${server.id}`);
+    }
+    return null;
 }
  
 export default InviteCodepage;

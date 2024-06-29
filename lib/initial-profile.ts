@@ -5,7 +5,6 @@ export const initialProfile=async ()=>{
     if(!user){
         return auth().redirectToSignIn();
     }
-
     const profile=await db.profile.findUnique({
         where:{
            userId:user.id
