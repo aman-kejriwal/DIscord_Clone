@@ -40,7 +40,4 @@ export async function POST(req:Request){
         console.log("[SERVER_POST]", error);
         return new NextResponse("Server Post not Working",{status:500});
     }
-    const profileId  = await currentProfile();
-
-
 }

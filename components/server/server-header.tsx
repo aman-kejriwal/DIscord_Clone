@@ -48,6 +48,9 @@ export const ServerHeader = (
                 {
                     isAdmin && (
                         <DropdownMenuItem
+                            onClick={()=>{
+                                onOpen("editServer",{server})
+                            }}
                             className="text-indigo-600 dark:text-indigo-400 p-3 py-2 text-sm cursor-pointer">
                             Server Settings
                             <Settings className="h-4 w-4 ml-auto" />
