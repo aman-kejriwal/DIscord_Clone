@@ -32,7 +32,6 @@ const SetUpPage = async () => {
   if(server){
      return redirect(`/servers/${server.id}`);
   }
-  
   return <CreateServerModal />
 }
  
