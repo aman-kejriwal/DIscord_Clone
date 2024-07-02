@@ -26,6 +26,7 @@ import { Input } from "../ui/input";
 import { FileUpload } from "../file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { useEffect } from "react";
 const formSchema = z.object({
     name: z.string().min(1, {
         message: "Server name is Required"
@@ -35,8 +36,11 @@ const formSchema = z.object({
     })
 })
 export const CreateServerModal = () => {
-    const {isOpen,onClose,type}=useModal();
+    const {onOpen,isOpen,onClose,type}=useModal();
     const router=useRouter() ;
+    useEffect(()=>{
+        onOpen("createServer",{});
+    },[]);
     const isModalOpen=isOpen&&type==="createServer";
     //form 
     const form = useForm({
