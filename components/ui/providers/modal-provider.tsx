@@ -1,5 +1,6 @@
 "use client"
 
+import { CreateChannelModal } from "@/components/modals/create-channel-modal";
 //This Modal is to remove the hydration error
 import { CreateServerModal } from "@/components/modals/create-server-modal"
 import { EditServerModal } from "@/components/modals/edit-server-modal";
@@ -17,6 +18,7 @@ export const ModalProvider=()=>{
         return null;
     return(
         <>
+           <CreateChannelModal/>
            <MembersModal />
            <InviteModal/>   
            <EditServerModal/>
