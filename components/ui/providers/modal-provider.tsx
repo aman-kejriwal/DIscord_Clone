@@ -21,12 +21,12 @@ export const ModalProvider=()=>{
     return(
         <> 
            <DeleteServerModal/>
-           <CreateChannelModal/>
            <MembersModal />
            <InviteModal/>   
            <EditServerModal/>
            <CreateServerModal/>
            <LeaveServerModal/>
+           <CreateChannelModal/> 
         </>
     )
 }

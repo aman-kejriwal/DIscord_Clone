@@ -29,7 +29,6 @@ import {
 } from '@/components/ui/form'
 import { Button } from "@/components/ui/button";
 import { Input } from "../ui/input";
-// import { useEffect, useState } from "react";
 import { FileUpload } from "../file-upload";
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
@@ -48,15 +47,15 @@ const formSchema = z.object({
 });
 export const CreateChannelModal = () => {
     const {isOpen,onClose,type}=useModal();
-    const router=useRouter() ;
+    const router=useRouter();
     const isModalOpen=isOpen&&type==="createChannel";
     //form 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type:ChannelType.TEXT,
-        }
+            type:ChannelType.TEXT, 
+        } 
     });
     const isLoading = form.formState.isSubmitting;
     const params=useParams();
@@ -82,7 +81,7 @@ export const CreateChannelModal = () => {
           form.reset();
           onClose();  
     }
-    
+
     return (
         <Dialog open={isModalOpen} onOpenChange={handleClose}>  
             <DialogContent
