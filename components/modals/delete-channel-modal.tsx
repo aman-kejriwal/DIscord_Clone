@@ -1,5 +1,5 @@
 "use client" 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -14,30 +14,28 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
-import { useParams } from "next/navigation";
 export const DeleteChannelModal = () => {
     const {onOpen,isOpen,onClose,type,data}=useModal();
     const isModalOpen=isOpen&&type==="deleteChannel";  
     //serverId
-    const {channel}=data;
+    const {channel,server}=data;
     const [isLoading,setIsLoading]=useState(false);
     const router=useRouter();
-    const params=useParams();
      const onClick= async ()=>{
         try{
             setIsLoading(true);
             const url=qs.stringifyUrl({
-                url:`/api/channel/${channel?.id}`,
+                url:`/api/channels/${channel?.id}`,
                 query:{
-                    serverId:params?.serverId,
-                }
+                    serverId:server?.id,
+                } 
             })
             const res=await axios.delete(url);
-            onClose();
+            onClose(); 
             router.refresh();
-            router.push(`/server/${params.serverId}`);
+            router.push(`/servers/${server?.id}`); 
         }   
-        catch(err){
+        catch(err){ 
             console.log(err);
         }
         finally{

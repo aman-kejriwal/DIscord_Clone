@@ -43,7 +43,8 @@ const ServerChannel = (
             {channel.name !== "general" && role !== MemberRole.GUEST && (
                 <div className="ml-auto flex items-center gap-x-2" >
                     <ActionTooltip label="Edit" side={"top"} align={"end"}>
-                        <Edit className="group-hover:block hidden w-4 h-4 text-zinc-500"/>
+                        <Edit className="group-hover:block hidden w-4 h-4 text-zinc-500"
+                        onClick={()=>onOpen("editChannel",{server,channel})}/>
                     </ActionTooltip>
                     <ActionTooltip label="Trash" side={"top"} align={"end"}>
                         <Trash className="group-hover:block hidden w-4 h-4 text-zinc-500" 
