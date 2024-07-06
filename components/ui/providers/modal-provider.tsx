@@ -3,6 +3,7 @@
 import { CreateChannelModal } from "@/components/modals/create-channel-modal";
 //This Modal is to remove the hydration error
 import { CreateServerModal } from "@/components/modals/create-server-modal"
+import { DeleteChannelModal } from "@/components/modals/delete-channel-modal";
 import { DeleteServerModal } from "@/components/modals/delete-server-modal";
 import { EditServerModal } from "@/components/modals/edit-server-modal";
 import { InviteModal } from "@/components/modals/invite-modal";
@@ -27,6 +28,7 @@ export const ModalProvider=()=>{
            <CreateServerModal/>
            <LeaveServerModal/>
            <CreateChannelModal/> 
+           <DeleteChannelModal />
         </>
     )
 }

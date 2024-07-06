@@ -21,7 +21,7 @@ export const ServerHeader = (
     const isAdmin = role === MemberRole.ADMIN;
     const isModerator = isAdmin || role === MemberRole.MODERATOR;
     return (
-        <DropdownMenu>
+        <DropdownMenu >
             <DropdownMenuTrigger
                 className="focus:outline-none"
                 asChild

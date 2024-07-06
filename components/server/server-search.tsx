@@ -57,7 +57,7 @@ const ServerSearch = ({
                     </p>
                 </div>
                 <kbd>
-                    <span className="pr-3 font-semibold">
+                    <span className="pr-3 font-semibold font-sans">
                         Ctrl+K
                     </span>
                 </kbd>

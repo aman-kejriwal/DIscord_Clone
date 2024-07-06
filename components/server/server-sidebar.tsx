@@ -10,6 +10,7 @@ import { Separator } from "../ui/separator";
 import { ServerSection } from "./server-section";
 import ServerChannel from "./server-channel";
 import { ServerMember } from "./server-member";
+
 interface ServerSidebarProps {
     serverId: string;
 }
@@ -59,14 +60,14 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     if (!server) {
         redirect("/");
     }
-    const role = server.members.find((member) => member.profileId === profile.id)?.role;
+    const role = server.members.find((member) => member.profileId === profile.id)?.role||MemberRole.GUEST;
     return (
-        <div className="px-2 flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+        <div className=" pl-3 flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
             <ServerHeader
                 server={server}
                 role={role} />
             <ScrollArea className="flex-1">
-                <div>
+                <div className="pr-4 hover:text-black">
                     <ServerSearch
                         data={[
 
@@ -179,10 +180,15 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                                 role={role}
                                 label="Members"
                                 server={server}
+                                channelType="TEXT"
                             />
                             <div className="space-y-[2px]">
                                 {members?.map((member) => (
-                                    <ServerMember />
+                                    <ServerMember 
+                                        key={member.id}
+                                        member={member}
+                                        server={server}
+                                    />
                                 ))}
                             </div>
                         </div>
