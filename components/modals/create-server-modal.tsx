@@ -37,7 +37,7 @@ const formSchema = z.object({
 })
 export const CreateServerModal = () => {
     const {onOpen,isOpen,onClose,type}=useModal();
-    const router=useRouter() ;
+    const router=useRouter();
     // useEffect(()=>{
     //     onOpen("createServer",{});
     // },[]);
@@ -55,12 +55,15 @@ export const CreateServerModal = () => {
       try{
          axios.post("/api/servers",values);
          form.reset();
-         router.refresh();
          onClose();
+         router.refresh();
       } 
       catch(error){
         console.log(error)
       } 
+      finally{
+        router.refresh();
+      }
     }
 
     const handleClose=()=>{
@@ -100,7 +103,6 @@ export const CreateServerModal = () => {
                                         </FormItem>
                                     )}
                                     >
-
                                 </FormField>
                             </div>
                             <FormField
@@ -109,7 +111,7 @@ export const CreateServerModal = () => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="font-bold text-xs ">Name Of Server</FormLabel>
-                                        <FormControl >
+                                        <FormControl>
                                             <Input className="bg-zinc-200" placeholder="Enter server" {...field} />
                                         </FormControl>
                                         <FormMessage/>

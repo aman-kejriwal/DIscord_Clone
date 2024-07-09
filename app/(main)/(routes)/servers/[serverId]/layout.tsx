@@ -18,7 +18,7 @@ const SeverIdLayout=async({
         where:{
             id:params.serverId,
             members:{
-                some:{
+                some:{ 
                     profileId:profile?.id
                 }
             }

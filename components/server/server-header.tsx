@@ -84,7 +84,7 @@ export const ServerHeader = (
                         <DropdownMenuSeparator className="bg-zinc-200" />
                     )
                 }
-                 {
+                {
                     isAdmin && (
                         <DropdownMenuItem
                         onClick={()=>onOpen("deleteServer",{server})}

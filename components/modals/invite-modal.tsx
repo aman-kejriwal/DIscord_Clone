@@ -35,14 +35,13 @@ export const InviteModal = () => {
             setIsLoading(true);
             const res=await axios.patch(`/api/servers/${server?.id}/invite-code`);
             //updating the data
-            setIsLoading(false);
             onOpen("invite",{server:res.data});
         }
         catch(error){
-          console.log("[Invite-Modal]: ",error);      
+            console.log("[Invite-Modal]: ",error);      
         }
         finally{
-
+            setIsLoading(false);
         }
 
     }

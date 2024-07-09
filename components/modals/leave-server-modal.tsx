@@ -25,8 +25,8 @@ export const LeaveServerModal = () => {
             setIsLoading(true);
             const res=await axios.patch(`/api/servers/${server?.id}/leave`);
             onClose();
-            router.refresh();
             router.push("/");
+            router.refresh();
         }   
         catch(err){
             console.log(err);

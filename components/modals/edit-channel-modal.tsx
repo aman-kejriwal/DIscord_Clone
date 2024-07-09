@@ -143,9 +143,6 @@ export const EditChannelModal = () => {
                                                 </SelectItem>
                                             ))
                                         }
-                                        {/* <SelectItem value="text">TEXT</SelectItem>
-                                        <SelectItem value="voice">AUDIO</SelectItem>
-                                        <SelectItem value="category">VIDEO</SelectItem> */}
                                      </SelectContent>
                                      </Select>
                                      <FormMessage/>

@@ -14,6 +14,7 @@
 import { CreateServerModal } from "@/components/modals/create-server-modal";
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
+import { redirectToSignIn } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 const SetUpPage = async () => {
   const profile=await initialProfile();
@@ -32,7 +33,7 @@ const SetUpPage = async () => {
      return redirect(`/servers/${server.id}`);
   }
   else {
-  return <CreateServerModal/>
+   return <CreateServerModal/>
 }
 }
  
