@@ -1,3 +1,4 @@
+import { ChatHeader } from "@/components/chat/chat-header";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
@@ -35,10 +36,16 @@ const MemberIdPage =  async ({
         return redirect(`/server/${params.serverId}`);
     }
     const {MemberOne,MemberTwo}= conversation;
-    const otherMember=MemberOne.profileId==profile?.id;
+    const otherMember=MemberOne.profileId===profile?.id?MemberTwo:MemberOne;
+
     return (
-        <div>
-            MemberId page is here!
+        <div className="bg-white dark:bg-zinc-500 flex flex-col h-full">
+            <ChatHeader
+            imageUrl={otherMember.profile.imageUrl}
+            name={otherMember.profile.name}
+            serverId={params.serverId}
+            type="conversation"
+            />
         </div>
     );
 }

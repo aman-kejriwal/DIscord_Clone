@@ -6,9 +6,10 @@ import { ThemeProvider } from "@/components/ui/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
- import '@uploadthing/react/styles.css'
+import '@uploadthing/react/styles.css'
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { ModalProvider } from "@/components/ui/providers/modal-provider";
+import { SocketProvider } from "@/components/ui/providers/socket-provider";
 
 const inter = Open_Sans({ subsets: ["latin"] });
 
@@ -25,18 +26,20 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body  className={ cn( inter.className,"bg-white dark:bg-[#313338]"  )}>
-            <ThemeProvider
+        <body className={cn(inter.className, "bg-white dark:bg-[#313338]")}>
+          <ThemeProvider
             attribute="classs"
             defaultTheme="dark"
             enableSystem={false}
             storageKey="discord-theme"
-            > 
-            <NextSSRPlugin 
-              routerConfig={extractRouterConfig(ourFileRouter)}/>
-             <ModalProvider/> 
+          >
+            <NextSSRPlugin
+              routerConfig={extractRouterConfig(ourFileRouter)} />
+            <SocketProvider>
+              <ModalProvider />
               {children}
-            </ThemeProvider>
+            </SocketProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
