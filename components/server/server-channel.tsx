@@ -32,7 +32,7 @@ const ServerChannel = (
         <button
         className={cn(
             "group mx-2 px-2 py-3 rounded-md flex items-center hover:bg-zinc-700/20 w-full",
-            params.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
+            params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
         )}
          onClick={onClickFunc}
         >
@@ -57,7 +57,9 @@ const ServerChannel = (
                 </div>
             )}
             {channel.name === "general" && (
-                <Lock className="ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 flex justify-end" />
+               <ActionTooltip label="Locked Channel" side={"top"} align={"end"}>
+                   <Lock className="ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 flex justify-end" />
+           </ActionTooltip> 
             )}
         </button>
     );

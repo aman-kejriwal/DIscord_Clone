@@ -28,7 +28,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn(inter.className, "bg-white dark:bg-[#313338]")}>
           <ThemeProvider
-            attribute="classs"
+            attribute="class"
             defaultTheme="dark"
             enableSystem={false}
             storageKey="discord-theme"
