@@ -10,6 +10,7 @@ import '@uploadthing/react/styles.css'
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { ModalProvider } from "@/components/ui/providers/modal-provider";
 import { SocketProvider } from "@/components/ui/providers/socket-provider";
+import { QueryProvider } from "@/components/ui/providers/query-provider";
 
 const inter = Open_Sans({ subsets: ["latin"] });
 
@@ -37,7 +38,9 @@ export default function RootLayout({
               routerConfig={extractRouterConfig(ourFileRouter)} />
             <SocketProvider>
               <ModalProvider />
-              {children}
+              <QueryProvider>
+                {children}
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>

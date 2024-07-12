@@ -4,6 +4,7 @@ import { ChatMessages } from "@/components/chat/chat-messages";
 import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs/server";
+import { Member } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 interface ChannelIdPageProps {
@@ -30,17 +31,27 @@ const ChannnelIdPage = async (
             profileId: profile.id
         }
     });
-    // if (!channel || !member) {
-    // redirect(`/servers/${params.serverId}`);
-    // }
     return (
-        <div className="bg-white dark:bg-zinc-800 flex flex-col h-full w-full">
+        <div className="bg-white dark:bg-zinc-800/10 flex flex-col h-full w-full">
             <ChatHeader
                 name={channel?.name||"Channel Name"}
                 type="channel"
                 serverId={channel?.serverId||""}
             />
-            <ChatMessages/>
+            <ChatMessages 
+            member={member as Member}
+            name={channel?.name+""}
+            chatId={channel?.id+""}
+            type="channel"
+            apiUrl="/api/messages"
+            socketUrl="/api/socket/messages"
+            socketQuery={{
+                channelId: channel?.id+"",
+                serverId: channel?.serverId+""
+            }}
+            paramKey="channelId"
+            paramValue={channel?.id+""}
+            />
                 <ChatInput 
                 name={channel?.name+""}
                 type="channel"

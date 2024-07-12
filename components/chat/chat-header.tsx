@@ -17,10 +17,10 @@ export const ChatHeader=async (
     }:ChatHeaderProps
 )=>{
    return (
-    <div className="bg-white dark:bg-zinc-700 flex h-12 text-md font-semibold px-3 items-center border-neutral-200 border-b-2 ">
+    <div className="bg-white dark:bg-zinc-800 flex h-12 text-md font-semibold px-3 items-center border-zinc-900 border-b-2 ">
         <MobileToggle serverId={serverId}/>
         {type==="channel"&&(
-            <Hash className="w-5 h-5 text-zinc-500 dark-text-zinc-400 mr-2"/>
+            <Hash className="w-5 h-5 text-zinc-500 dark:text-white mr-2"/>
         )}
         {type==="conversation"&&(
          <UserAvatar 
@@ -29,7 +29,7 @@ export const ChatHeader=async (
          />   
         )
         }
-        <p className="font-semibold text-md">
+        <p className="dark:text-white font-semibold text-md">
             {name}
         </p>
         <div className="ml-auto flex items-center">
