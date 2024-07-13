@@ -73,10 +73,10 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                                         disabled={isLoading}
                                         placeholder={`Messages ${type === "conversation" ? name : "#" + name}`}
                                         {...field}
-                                        className="font-serif text-white text-xl px-14 py-6 dark:bg-zinc-700/90 border-none border-0 focus-visible:ring-0 items-center w-full focus-visible:ring-offset-0"
+                                        className=" bg-zinc-500/20 font-serif dark:text-white text-xl px-14 py-6 dark:bg-zinc-700/90 border-none border-0 focus-visible:ring-0 items-center w-full focus-visible:ring-offset-0"
                                     />
                                     <div className="absolute h-8 w-8 right-10">
-                                        <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)} />
+                                        <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)}/>
                                     </div>
                                 </div>
                             </FormControl>

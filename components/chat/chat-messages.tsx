@@ -2,6 +2,9 @@
 
 import { Member } from "@prisma/client";
 import { ChatWelcome } from "./chat-welcome";
+import { useChatQuery } from "@/hooks/use-chat-query";
+import { QueryKey } from "@tanstack/react-query";
+import { Loader2, ServerCrash } from "lucide-react";
 
 interface ChatMessagesProps{
     name:string;
@@ -28,6 +31,39 @@ export const ChatMessages=(
         type
     }:ChatMessagesProps
 )=>{
+    const queryKey=`chat:${chatId}`;
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        status,
+    }=useChatQuery({
+        queryKey,
+        apiUrl,
+        paramKey,
+        paramValue
+    });
+    if(status!=="error"&&status!=="success"){
+        return (
+            <div className="flex flex-col flex-1 justify-center items-center">
+                <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4"/>
+                <p className="text-xl text-zinc-500 dark:text-zinc-400">
+                Loading messages....
+                </p>
+            </div>
+        )
+    }
+    if(status==="error"){
+        return (
+            <div className="flex flex-col flex-1 justify-center items-center">
+                <ServerCrash className="h-7 w-7 text-zinc-500 my-4"/>
+                <p className="text-xl text-zinc-500 dark:text-zinc-400">
+                   Server Not Responding😟    
+                </p>
+            </div>
+        )
+    }
     return (
         <div className="flex-1 flex flex-col py-4 overflow-y-auto">
             <div className="flex-1">

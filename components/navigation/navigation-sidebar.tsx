@@ -27,7 +27,7 @@ export default async function NavigationSidebar() {
         <div className="bg-zinc-700 h-full text-primary w-full flex-col items-center space-y-4 py-3">
             <NavigationAction />
             <Separator
-                className="h-[2px] bg-zinc-400 w-10 dark:bg-zinc-700 rounded-md mx-auto"
+                className="h-[2px] bg-zinc-400 w-10 dark:bg-zinc-400 rounded-md mx-auto"
             />
             <ScrollArea
                 className="w-full flex flex-col items-center space-y-4 overflow-y-auto">

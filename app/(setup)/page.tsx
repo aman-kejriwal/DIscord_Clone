@@ -18,7 +18,7 @@ import { redirectToSignIn } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 const SetUpPage = async () => {
   const profile=await initialProfile();
-  console.log(profile);
+  // console.log(profile);
   // we are checking if the user is a part of any server, if he is then redirect to them o/w ask them to create a ner server
   const server=await db.server.findFirst({
     where:{
