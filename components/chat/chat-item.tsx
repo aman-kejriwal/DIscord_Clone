@@ -99,7 +99,9 @@ export const ChatItem = ({
         query: socketQuery,
       });
 
-      await axios.patch(url, values);
+      const res=await axios.patch(url, values);
+      console.log("Aman");
+      console.log(res);
       form.reset();
       setIsEditing(false);
     } catch (error) {
@@ -182,12 +184,12 @@ export const ChatItem = ({
               className={cn(
                 'text-xl text-black dark:text-white',
                 deleted &&
-                'italic text-zinc-500 dark:text-zinc-400 text-xs mt-1',
+                'italic text-zinc-500 dark:text-zinc-400 text-[15px] mt-1',
               )}
             >
               {content}
               {isUpdated && !deleted && (
-                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                <span className="text-[15px] font-semibold mx-2 text-zinc-500 dark:text-zinc-400">
                   (edited)
                 </span>
               )}
@@ -240,7 +242,11 @@ export const ChatItem = ({
           )}
           <ActionTooltip label="Delete" side={'top'} align={'start'}>
             <Trash
-              
+              onClick={()=>onOpen("deleteMessage",{
+                apiUrl:`${socketUrl}/${id}`,
+                query:socketQuery,
+              })
+              }
               className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
             />
           </ActionTooltip>

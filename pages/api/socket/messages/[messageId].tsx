@@ -34,7 +34,7 @@ export default async function handler(
                 }
             },
             include: {
-                members: true
+                members: true,
             }
         });
         if (!server) {
@@ -49,7 +49,6 @@ export default async function handler(
         if (!channel) {
             return res.status(404).json({ Message: "channel not found" });
         }
-
         const member = server.members.find((member) => member.profileId === profile.id);
         if (!member) {
             return res.status(404).json({ message: "member not fouund" });
@@ -107,6 +106,7 @@ export default async function handler(
                 },
                 data:{
                   content,
+                  updatedAt:new Date(),
                 },
                include:{
                 member:{
@@ -116,7 +116,6 @@ export default async function handler(
                 }
                }
              }); 
-
         }
         const updateKey=`chat:${channelId}:messages:update`;
         res?.socket?.server?.io?.emit(updateKey);

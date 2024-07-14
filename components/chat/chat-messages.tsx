@@ -5,7 +5,7 @@ import { ChatWelcome } from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { QueryKey } from "@tanstack/react-query";
 import { Loader2, ServerCrash } from "lucide-react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { MessageWithMemberWithProfile } from "@/types";
 import { ChatItem } from "./chat-item";
 import { format } from "date-fns";
@@ -48,6 +48,14 @@ export const ChatMessages = (
         paramKey,
         paramValue
     });
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
+    }, [data]);
+  
     if (status !== "error" && status !== "success") {
         return (
             <div className="flex flex-col flex-1 justify-center items-center">
@@ -69,7 +77,7 @@ export const ChatMessages = (
         )
     }
     return (
-        <div className="flex-1 flex flex-col py-4 overflow-y-auto">
+        <div className="flex-1 flex flex-col py-4 overflow-y-auto" ref={scrollRef}>
             <div className="flex-1">
                 <ChatWelcome name={name} type={type} />
             </div>
