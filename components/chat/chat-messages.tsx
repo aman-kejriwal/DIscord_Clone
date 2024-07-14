@@ -5,20 +5,24 @@ import { ChatWelcome } from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { QueryKey } from "@tanstack/react-query";
 import { Loader2, ServerCrash } from "lucide-react";
-
-interface ChatMessagesProps{
-    name:string;
-    member:Member;
-    chatId:string;
-    apiUrl:string;
-    socketUrl:string;
-    socketQuery:Record<string ,string>;
-    paramKey:"channelId"|"conversationId";
-    paramValue:string;
-    type:"channel"|"conversation"
+import { Fragment } from "react";
+import { MessageWithMemberWithProfile } from "@/types";
+import { ChatItem } from "./chat-item";
+import { format } from "date-fns";
+const Date_Format="d MMM yyyy  HH:mm"
+interface ChatMessagesProps {
+    name: string;
+    member: Member;
+    chatId: string;
+    apiUrl: string;
+    socketUrl: string;
+    socketQuery: Record<string, string>;
+    paramKey: "channelId" | "conversationId";
+    paramValue: string;
+    type: "channel" | "conversation"
 
 }
-export const ChatMessages=(
+export const ChatMessages = (
     {
         name,
         member,
@@ -29,37 +33,37 @@ export const ChatMessages=(
         paramKey,
         paramValue,
         type
-    }:ChatMessagesProps
-)=>{
-    const queryKey=`chat:${chatId}`;
+    }: ChatMessagesProps
+) => {
+    const queryKey = `chat:${chatId}`;
     const {
         data,
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
         status,
-    }=useChatQuery({
+    } = useChatQuery({
         queryKey,
         apiUrl,
         paramKey,
         paramValue
     });
-    if(status!=="error"&&status!=="success"){
+    if (status !== "error" && status !== "success") {
         return (
             <div className="flex flex-col flex-1 justify-center items-center">
-                <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4"/>
+                <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
                 <p className="text-xl text-zinc-500 dark:text-zinc-400">
-                Loading messages....
+                    Loading messages....
                 </p>
             </div>
         )
     }
-    if(status==="error"){
+    if (status === "error") {
         return (
             <div className="flex flex-col flex-1 justify-center items-center">
-                <ServerCrash className="h-7 w-7 text-zinc-500 my-4"/>
+                <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
                 <p className="text-xl text-zinc-500 dark:text-zinc-400">
-                   Server Not Responding😟    
+                    Server Not Responding😟
                 </p>
             </div>
         )
@@ -67,7 +71,28 @@ export const ChatMessages=(
     return (
         <div className="flex-1 flex flex-col py-4 overflow-y-auto">
             <div className="flex-1">
-                <ChatWelcome name={name} type={type}/>
+                <ChatWelcome name={name} type={type} />
+            </div>
+            <div className="flex flex-col reverse mt-auto dark:text-white">
+                {data?.pages?.map((group,i)=>(
+                    <Fragment key={i}>
+                        {group?.items?.map((message:MessageWithMemberWithProfile) => (
+                            <ChatItem 
+                            key={message.id}
+                            id={message?.id}
+                            fileUrl={message.fileUrl}
+                            member={message.member}
+                            currentMember={member}
+                            content={message.content}
+                            deleted={message.deleted}
+                            timestamp={format(new Date(message?.createdAt),Date_Format)}
+                            isUpdated={message.createdAt!==message.updatedAt}
+                            socketQuery={socketQuery}
+                            socketUrl={socketUrl}
+                            />
+                        ))}
+                    </Fragment>
+                ))}
             </div>
         </div>
     )

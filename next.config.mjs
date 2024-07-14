@@ -6,7 +6,7 @@ const nextConfig = {
     //     ]
     // },
       images: {
-          domains: ['utfs.io', /* other domains */],
+          domains: ['utfs.io','img.clerk.com' /* other domains */],
         },
 };
 

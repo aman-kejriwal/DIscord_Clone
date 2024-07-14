@@ -15,7 +15,7 @@ export default async function handler(
         const profile = await currentProfilePages(req);
         const { content, fileUrl } = req.body;
         const { serverId, channelId } = req.query;
-        const fileURL=fileUrl?fileUrl:"Empty";
+        const fileURL=!!fileUrl?fileUrl:"Empty";
         if (!profile) {
             return res.status(401).json({ message: "Unauthorized User" });
         }
@@ -66,7 +66,7 @@ export default async function handler(
         const message = await db.message.create({
             data: {
                 content,
-                fileUrl,
+                fileUrl:fileURL,
                 channelId: channel.id,
                 memberId: member.id,
             },
@@ -80,7 +80,6 @@ export default async function handler(
         });
         const channelKey = `chat:${channelId}:messages`;
         res?.socket?.server?.io?.emit(channelKey, message);
-
         return res.status(200).json(message);
     } catch (err) {
         console.log("[Messages_POST]", err);
