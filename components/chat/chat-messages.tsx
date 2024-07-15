@@ -9,6 +9,7 @@ import { Fragment, useEffect, useRef } from "react";
 import { MessageWithMemberWithProfile } from "@/types";
 import { ChatItem } from "./chat-item";
 import { format } from "date-fns";
+import { useChatSocket } from "../../hooks/use-chat-socket";
 const Date_Format="d MMM yyyy  HH:mm"
 interface ChatMessagesProps {
     name: string;
@@ -36,6 +37,9 @@ export const ChatMessages = (
     }: ChatMessagesProps
 ) => {
     const queryKey = `chat:${chatId}`;
+    const addKey = `chat:${chatId}:messages`;
+    const updateKey = `chat:${chatId}:messages:update`;
+  
     const {
         data,
         fetchNextPage,
@@ -48,8 +52,13 @@ export const ChatMessages = (
         paramKey,
         paramValue
     });
+    useChatSocket({
+        queryKey,
+        addKey,
+        updateKey,
+      });
     const scrollRef = useRef<HTMLDivElement>(null);
-
+    
     useEffect(() => {
       if (scrollRef.current) {
         scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -77,7 +86,7 @@ export const ChatMessages = (
         )
     }
     return (
-        <div className="flex-1 flex flex-col py-4 overflow-y-auto" ref={scrollRef}>
+        <div className="flex-1 flex flex-col py-4 overflow-y-auto">
             <div className="flex-1">
                 <ChatWelcome name={name} type={type} />
             </div>
