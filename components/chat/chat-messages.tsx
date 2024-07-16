@@ -38,7 +38,7 @@ export const ChatMessages = (
 ) => {
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
-    const updateKey = `chat:${chatId}:messages:update`;
+    const updateKey =`chat:${chatId}:messages:update`;
   
     const {
         data,
@@ -57,13 +57,13 @@ export const ChatMessages = (
         addKey,
         updateKey,
       });
-    const scrollRef = useRef<HTMLDivElement>(null);
+    // const scrollRef = useRef<HTMLDivElement>(null);
     
-    useEffect(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      }
-    }, [data]);
+    // useEffect(() => {
+    //   if (scrollRef.current) {
+    //     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    //   }
+    // }, [data]);
   
     if (status !== "error" && status !== "success") {
         return (
