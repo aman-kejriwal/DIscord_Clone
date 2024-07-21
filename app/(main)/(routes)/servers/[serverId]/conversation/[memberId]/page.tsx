@@ -1,4 +1,7 @@
 import { ChatHeader } from "@/components/chat/chat-header";
+import { ChatInput } from "@/components/chat/chat-input";
+import { ChatMessages } from "@/components/chat/chat-messages";
+import MediaRoom from "@/components/media-room";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
@@ -9,43 +12,79 @@ interface MemerIdPageProps {
     params: {
         memberId: string,
         serverId: string,
+    },
+    searchParams:{
+        video?:boolean
     }
 }
-const MemberIdPage =  async ({
-    params
-}:MemerIdPageProps) => {
-    const profile=await currentProfile()
-    if(!profile){
+const MemberIdPage = async ({
+    params,
+    searchParams
+}: MemerIdPageProps) => {
+    const profile = await currentProfile()
+    if (!profile) {
         redirectToSignIn();
     }
-    const currentMember=await db.member.findFirst({
+    const currentMember = await db.member.findFirst({
         where: {
-            profileId:profile?.id,
-            serverId:params.serverId
+            profileId: profile?.id,
+            serverId: params.serverId
         },
-        include:{
-            profile:true
+        include: {
+            profile: true
         }
     });
-    if(!currentMember){
+    if (!currentMember) {
         return redirect("/");
     }
-    const conversation=await getOrCreateConversation(currentMember.id,params.memberId);
+    const conversation = await getOrCreateConversation(currentMember.id, params.memberId);
 
-    if(!conversation){
+    if (!conversation) {
         return redirect(`/server/${params.serverId}`);
     }
-    const {MemberOne,MemberTwo}= conversation;
-    const otherMember=MemberOne.profileId===profile?.id?MemberTwo:MemberOne;
+    const { MemberOne, MemberTwo } = conversation;
+    const otherMember = MemberOne.profileId === profile?.id ? MemberTwo : MemberOne;
 
     return (
-        <div className="bg-white dark:bg-zinc-500 flex flex-col h-full">
+        <div className="bg-white dark:bg-zinc-800/10 flex flex-col h-full w-full">
             <ChatHeader
-            imageUrl={otherMember.profile.imageUrl}
-            name={otherMember.profile.name}
-            serverId={params.serverId}
-            type="conversation"
+                imageUrl={otherMember.profile.imageUrl}
+                name={otherMember.profile.name}
+                serverId={params.serverId}
+                type="conversation"
             />
+            {searchParams.video&&(
+                <MediaRoom 
+                chatId={conversation.id}
+                video={true}
+                audio={false}
+                />
+            )}
+            {!searchParams.video &&(
+                <>
+                 <ChatMessages
+                member={currentMember}
+                name={otherMember.profile.name}
+                chatId={conversation.id}
+                type="conversation"
+                apiUrl="/api/direct-messages"
+                paramKey="conversationId"
+                paramValue={conversation.id}
+                socketUrl="/api/socket/direct-messages"
+                socketQuery={{
+                    conversationId: conversation.id
+                }}
+
+            />
+            <ChatInput
+                apiUrl="/api/socket/direct-messages"
+                query={{
+                    conversationId: conversation.id
+                }}
+                name={otherMember.profile.name}
+                type={"conversation"} />
+                </>
+            )}
         </div>
     );
 }
