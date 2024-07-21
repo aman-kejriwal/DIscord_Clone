@@ -24,7 +24,7 @@ export default async function NavigationSidebar() {
     });
 
     return (
-        <div className="bg-zinc-700 h-full text-primary w-full flex-col items-center space-y-4 py-3">
+        <div className="bg-zinc-600 dark:bg-zinc-950 text-primary w-full h-full flex-col space-y-4 py-3">
             <NavigationAction />
             <Separator
                 className="h-[2px] bg-zinc-400 w-10 dark:bg-zinc-400 rounded-md mx-auto"
@@ -40,7 +40,7 @@ export default async function NavigationSidebar() {
                     </div>
                 ))}
             </ScrollArea>
-            <div className="flex items-center flex-col gap-y-4 justify-end mt-auto" >
+            <div className="flex flex-col items-center h-fit  gap-y-4 justify-end" >
                 <ModeToggle />
                 <UserButton
                     afterSignOutUrl="/"
