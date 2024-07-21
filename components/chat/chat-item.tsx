@@ -182,9 +182,9 @@ export const ChatItem = ({
           {(fileUrl==="Empty") && !isEditing && (
             <p
               className={cn(
-                'text-xl text-black dark:text-white',
+                'text-2xl text-black dark:text-white',
                 deleted &&
-                'italic text-zinc-500 dark:text-zinc-400 text-[15px] mt-1',
+                'italic text-zinc-500 dark:text-zinc-400 text-xl mt-1',
               )}
             >
               {content}
