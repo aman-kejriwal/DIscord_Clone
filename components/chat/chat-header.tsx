@@ -3,6 +3,7 @@ import { MobileToggle } from "../mobile-toggle"
 import UserAvatar from "../user-avatar"
 import { SocketIndicator } from "../socket-indicator"
 import { ChatVideoButton } from "./chat-video-button"
+import { channel } from "diagnostics_channel"
 
 interface ChatHeaderProps{
     serverId:string,
@@ -34,7 +35,9 @@ export const ChatHeader=async (
             {name}
         </p>
         <div className="ml-auto flex items-center">
-         <ChatVideoButton/> 
+            {type==="conversation"&&(
+                <ChatVideoButton/> 
+            )}
         <SocketIndicator/>
         </div>
     </div>
