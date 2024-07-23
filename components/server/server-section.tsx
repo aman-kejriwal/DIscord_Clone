@@ -24,7 +24,7 @@ export const ServerSection = ({
     const { onOpen } = useModal();
     return (
         <div className="group flex items-center justify-between py-2 px-2 hover:bg-zinc-700/10 transitio">
-            <p className="text-[15px] group-hover:text-black text-zinc-500 dark:text-zinc-400 uppercase font-semibold ">
+            <p className="text-[15px] group-hover:dark:text-zinc-500 group-hover:text-black text-zinc-400 uppercase font-semibold ">
                 {label}
             </p>
             {role !== MemberRole.GUEST && selectionType == "channels" && (

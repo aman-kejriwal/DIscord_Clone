@@ -24,33 +24,31 @@ export default async function NavigationSidebar() {
     });
 
     return (
-        <div className="bg-zinc-600 dark:bg-zinc-950 text-primary w-full h-full flex-col space-y-4 py-3">
-            <NavigationAction />
-            <Separator
-                className="h-[2px] bg-zinc-400 w-10 dark:bg-zinc-400 rounded-md mx-auto"
-            />
-            <ScrollArea
-                className="w-full flex flex-col items-center space-y-4 overflow-y-auto">
-                {servers.map((server) => (
-                    <div key={server.id} className="mb-4 mx-auto text-center">
-                        <NavigationItem
-                            id={server.id}
-                            name={server.name}
-                            imageUrl={server.imageUrl} />
-                    </div>
-                ))}
-            </ScrollArea>
-            <div className="flex flex-col items-center h-fit  gap-y-4 justify-end" >
-                <ModeToggle />
-                <UserButton
-                    afterSignOutUrl="/"
-                    appearance={{
-                        elements: {
-                            avatarBox: "h-[48px] w-[48px]"
-                        }
-                    }}
+        <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#e3e5e8] py-5">
+          <NavigationAction />
+          <Separator className="h-[2px] bg-zinc-400 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
+          <ScrollArea className="flex-1 w-full">
+            {servers.map((server) => (
+              <div key={server.id} className="mb-4">
+                <NavigationItem
+                  id={server.id}
+                  name={server.name}
+                  imageUrl={server.imageUrl}
                 />
-            </div>
+              </div>
+            ))}
+          </ScrollArea>
+          <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
+            <ModeToggle />
+            <UserButton
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: 'h-[48px] w-[48px]',
+                },
+              }}
+            />
+          </div>
         </div>
-    )
-}   
+      );
+    };
