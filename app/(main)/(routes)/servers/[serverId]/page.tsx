@@ -31,7 +31,7 @@ const ServerPage = async (
         }
     });
     const initialChannel = server?.channels[0];
-    console.log(initialChannel);
+    // console.log(initialChannel);
     if (initialChannel?.name !== "general") {
         return null;
     }

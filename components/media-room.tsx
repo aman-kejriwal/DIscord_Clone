@@ -8,6 +8,7 @@ import {
     ParticipantTile,
     RoomAudioRenderer,
     useTracks,
+    VideoConference,
 } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { Track } from "livekit-client";
@@ -58,8 +59,8 @@ export default function MediaRoom({
 
     return (
         <LiveKitRoom
-            video={true}
-            audio={true}
+            video={video}
+            audio={audio}
             token={token}
             connect={true}
             serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
@@ -68,12 +69,13 @@ export default function MediaRoom({
             style={{ height: '100dvh' }}
         >
             {/* Your custom component with basic video conferencing functionality. */}
-            <MyVideoConference />
+            {/* <MyVideoConference /> */}
+            <VideoConference/>
             {/* The RoomAudioRenderer takes care of room-wide audio for you. */}
-            <RoomAudioRenderer />
+            {/* <RoomAudioRenderer /> */}
             {/* Controls for the user to start/stop audio, video, and screen
       share tracks and to leave the room. */}
-            <ControlBar />
+            {/* <ControlBar /> */}
         </LiveKitRoom>
     );
 }

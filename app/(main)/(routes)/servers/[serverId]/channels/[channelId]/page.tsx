@@ -28,10 +28,13 @@ const ChannnelIdPage = async (
     });
     const member = await db.member.findFirst({
         where: {
-            id: params.serverId,
+            serverId: params.serverId,
             profileId: profile.id
         }
     });
+    if(!channel||!member){
+        redirect("/");
+    }
     return (
         <div className="bg-white dark:bg-zinc-800/10 flex flex-col h-full w-full">
             <ChatHeader
@@ -69,7 +72,7 @@ const ChannnelIdPage = async (
             {channel?.type===ChannelType.VIDEO &&(
                 <MediaRoom 
                 chatId={channel.id}
-                audio={false}
+                audio={true}
                 video={true}
                 />
             )}

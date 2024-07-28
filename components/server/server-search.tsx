@@ -36,10 +36,10 @@ const ServerSearch = ({
     function onClick({ id, type }: { id: string, type: "channel" | "member" }) {
         setOpen(false);
         if (type === 'channel') {
-            router.push(`/servers/${params.serverId}/channels/${id}`)
+            router.push(`/servers/${params?.serverId}/channels/${id}`)
         }
-        if(type==="member"){
-            router.push(`/servers/${params.serverId}/conversations/${id}`)
+        if (type === "member") {
+            router.push(`/servers/${params?.serverId}/conversations/${id}`)
         }
     }
 
@@ -57,8 +57,8 @@ const ServerSearch = ({
                     </p>
                 </div>
                 <kbd>
-                    <span className="pr-3 font-semibold font-sans">
-                        Ctrl+K
+                    <span className="pr-3">
+                        ctrl+k
                     </span>
                 </kbd>
             </button>
@@ -74,7 +74,7 @@ const ServerSearch = ({
                             <CommandGroup key={label} heading={label}>
                                 {data.map(({ id, icon, name }) => {
                                     return (
-                                        <CommandItem key={id} onSelect={()=>onClick({id,type})}>
+                                        <CommandItem key={id} onSelect={() => onClick({ id, type })}>
                                             {icon}
                                             <span>{name}</span>
                                         </CommandItem>

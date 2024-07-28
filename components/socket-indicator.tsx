@@ -6,10 +6,10 @@ export const SocketIndicator = () => {
     const { isConnected } = useSocket();
     if (!isConnected) {
         return <Badge variant="outline" className="bg-yellow-600 text-white border-none">
-            Hitting every 1s
+            Looking for Connection
         </Badge>
     }
     return <Badge variant="outline" className="bg-emerald-600 text-white border-none">
-            LIVE Real-time updates
+            Connected for Real-time updates
     </Badge>
 }
