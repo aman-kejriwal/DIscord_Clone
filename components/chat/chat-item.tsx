@@ -100,7 +100,7 @@ export const ChatItem = ({
       });
 
       const res=await axios.patch(url, values);
-      console.log("Aman");
+      // console.log("Aman");
       console.log(res);
       form.reset();
       setIsEditing(false);
@@ -119,7 +119,7 @@ export const ChatItem = ({
 
   const isAdmin = member?.role === MemberRole?.ADMIN;
   const isModerator = member?.role === MemberRole?.MODERATOR;
-  const isOwner = member?.id === member?.id;
+  const isOwner = currentMember?.id === member?.id;
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
   const canEditMessage = !deleted && isOwner && (fileUrl==="Empty");
   const isPDF = fileType === 'pdf' && (fileUrl!=="Empty");

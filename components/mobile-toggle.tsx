@@ -18,12 +18,12 @@ export const MobileToggle = (
                     <Menu />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 flex gap-0">
-                <div className="w-[72px]">
-                    <NavigationSidebar />
-                </div>
-                <ServerSidebar serverId={serverId} />
-            </SheetContent>
+                <SheetContent side="left" className="p-0 flex gap-0">
+                    <div className="w-[72px]">
+                        <NavigationSidebar />
+                    </div>
+                    <ServerSidebar serverId={serverId} />
+                </SheetContent>
         </Sheet>
     )
 }
